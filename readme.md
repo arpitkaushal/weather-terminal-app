@@ -18,7 +18,9 @@ I've implemented two versions of the same app. \
 5. In the root folder, open the file `.env1` You need to edit the dummy `API Keys` with **your own** *API Keys* . 
     1. Set `API_KEY_GEO = < Geocode API Key >` 
     2. Set `API_KEY_OWM = < Current Weather Map API Key >` \
-    You can get your API Key [here](https://openweathermap.org/current). (Sign up Required)   
+    You can get an OWM API Key [here](https://openweathermap.org/current). (Sign up Required) 
+    
+    Both of these step is really important. The app won't work if you don't put valid API Keys. 
 6. Now rename the file from `.env1` to `.env`   \
 And the app is ready.
 
