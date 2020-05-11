@@ -30,14 +30,6 @@ geocode.geocodeAddress(argv.address, (errorMessage, result) => {        // addre
             else console.log(`\nAccording to OWM, \nIt's currently ${weatherResult.temperature.toFixed(2)} C.`+        //weatherResult contains weather data corresponding to the location
                             `\nIt feels like ${weatherResult.apparentTemperature.toFixed(2)} C though.\n`)
         })
-
-        // weather.getWeatherDARK( result.latitude, result.longitude, (err, weatherResult) => {                           // err and weatherResult are properties of callback 
-        //     if(err) console.log(err);                                  
-        //     else console.log(`\nAccording to DARK, \nIt's currently ${weatherResult.temperature.toFixed(2)} C.`+       //weatherResult contains weather data corresponding to the location
-        //                     `\nIt feels like ${weatherResult.apparentTemperature.toFixed(2)} C though.\n`)
-        // })
-
-
     }
 
 });
@@ -45,10 +37,4 @@ geocode.geocodeAddress(argv.address, (errorMessage, result) => {        // addre
 
 var FtoC = (num) => (num-32)*5/9 
 
-
-
-
-
-
 // API Call OpenWeatherMap https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid={API_KEY_OWM}
-// API Call Dark Weather https://api.darksky.net/forecast/${API_KEY_DARK}/${latitude},${longitude}

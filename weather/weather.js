@@ -32,35 +32,7 @@ var getWeatherOWM = (lat, lon, callback) => {
 
 }
 
-//function to fetch weather data from DARK SKY API
-var getWeatherDARK = (lat, lon, callback) => {
-    
-    request( 
-    
-    //options
-    {
-        url: `https://api.darksky.net/forecast/${process.env.API_KEY_DARK}/${lat},${lon}`,
-        json: true
-    },
-    
-    //callback
-    (error, response, body) => {
-
-            if (!error && response.statusCode === 200) {
-              callback(undefined, {
-                temperature: FtoC(body.currently.temperature),                  // temperature converted to degree C from degree F
-                apparentTemperature: FtoC(body.currently.apparentTemperature)   
-              });
-            } else callback('Unable to fetch weather.');
-
-        }
-    );
-
-}
-
-
 module.exports = {
-    getWeatherDARK,
     getWeatherOWM
   }
   
