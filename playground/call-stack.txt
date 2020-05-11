@@ -1,0 +1,69 @@
+So far, you haven't used Node APIs, the Callback Queue, or the Event Loop. The next example will use all four (Call Stack, the Node APIs, the Callback Queue, and the Event Loop). As shown on the left-hand side of the following screenshot, you have your async example, exactly the same as you wrote it in the last section:
+
+In this example, you will be using the Call Stack, the Node APIs, the Callback Queue, and the Event Loop. All four of these are going to come into play for your asynchronous program. Now things are going to start off as you might expect. The first thing that happens is you run the main function by adding it on to the Call Stack. This tells V8 to kick off the code you have on the left side in the previous screenshot, shown here again:
+
+console.log('Starting app');
+ 
+setTimeout(() => {
+  console.log('Inside of callback');
+}, 2000);
+ 
+setTimeout(() => {
+  console.log('Second setTimeout');
+}, 0);
+ 
+console.log('Finishing up');
+The first statement in this code is really simple, a console.log statement that prints Starting app to the screen:
+
+img
+This statement runs right away, and you move on to the second statement. The second statement is where things start to get interesting; this is a call to setTimeout, which is indeed a Node API. It's not available inside V8; it's something that Node gives us access to:
+
+img
+The Node API in Async Programming
+When you call the setTimeout (2 sec) function, you're actually registering the event callback pair in the Node APIs. The event is simply to wait two seconds, and the callback is the function you provided, the first argument. When you call setTimeout, it gets registered right in the Node APIs as shown here:
+
+img
+Now, this statement will finish up, the Call Stack will move on, and the setTimeout will start counting down. Just because the setTimeout is counting down, it doesn't mean the Call Stack can't continue to do its job. The Call Stack can only run one thing at a time, but you can have events waiting to get processed even when the Call Stack is executing. Now the next statement that runs is the other call to setTimeout:
+
+img
+In this, you register a setTimeout callback function with a delay of 0 milliseconds, and the exact same thing happens. It's a Node API, and it's going to get registered, as shown in the following screenshot. This essentially says that after zero seconds, you can execute this callback:
+
+img
+The setTimeout (0 sec) statement gets registered, and the Call Stack removes that statement.
+
+The Callback Queue in Async Programming
+At this point, let's assume that setTimeout, the one that has a zero second delay, finishes. When it finishes, it's not going to get executed right away; it's going to take that callback and move it down into the Callback Queue, as shown here:
+
+img
+The Callback Queue is all the callback functions that are ready to get fired. In the previous screenshot, you move the function from Node API into the Callback Queue. Now the Callback Queue is where your callback functions will wait; they need to wait for the Call Stack to be empty.
+
+When the Call Stack is empty, you can run the first function. There's another function after it. You'll have to wait for that first function to run before the second one does, and this is where the Event Loop comes into play.
+
+The Event Loop
+The Event Loop takes a look at the Call Stack. If the Call Stack is not empty, it doesn't do anything because it can't; there is nothing it can do; you can only run one thing at a time. If the Call Stack is empty, the Event Loop says great let's see if there's anything to run. In your case, there is a callback function, but because you don't have an empty Call Stack, the Event Loop can't run it. So let's move on with the example.
+
+Running the Async Code
+The next thing that happens in your program is you run your console.log statement, which prints Finishing up to the screen. This is the second message that shows up in the terminal:
+
+img
+This statement runs, your main function is complete, and it gets removed from the Call Stack.
+
+At this point, the Event Loop says, "Hey, I see that you have nothing in the call stack, and you do have something in the Callback Queue, so let's run that callback function." It will take the callback and move it into the Call Stack; this means the function is executing:
+
+img
+It will run the first line, which is sitting on line 8, console.log, printing Second setTimeout to the screen. This is why Second setTimeout shows up after Finishing up in your previous section examples because you can't run your callback until the Call Stack is complete. Since Finishing up is part of the main function, it will always run before Second setTimeout.
+
+After your Second setTimeout statement finishes, the function is going to return implicitly, and callback will get removed from the Call Stack:
+
+img
+At this point, there's nothing in the Call Stack and nothing in the Callback Queue, but there is still something in your Node APIs, you still have an event listener registered. So the Node process is not yet completed. Two seconds later, the setTimeout(2 sec) event is going to fire, and it's going to take that callback function and move it into the Callback Queue. It gets removed from the Node APIs and it gets added to the Callback Queue:
+
+img
+At this point, the Event Loop will take a look at the Call Stack and see it's empty. Then it will take a quick look at the Callback Queue and see there is indeed something to run. What will it do? It will take that callback, add it on to the Call Stack, and start the process of executing it. This means that you'll run your one statement inside callback. After that's finished, the callback function implicitly returns, and your program is complete:
+
+img
+This is exactly how your program ran. This illustrates how you're able to register your events using Node APIs, and why when you use a setTimeout of zero, the code doesn't run right away. It needs to go through the Node APIs and through the Callback Queue before it can ever execute on the Call Stack.
+
+Now, as mentioned at the beginning of this section, the Call Stack, the Node APIs, the Callback Queue, and the Event Loop are pretty confusing topics. A big reason why they're confusing is because you never actually directly interact with them; they're happening behind the scenes. You're not calling the Callback Queue; you're not firing an Event Loop method to make these things work. This means you're not aware they exist until someone explains them. These are topics that are really hard to grasp the first time around. By writing real asynchronous code, it's going to become a lot clearer how it works.
+
+Now that you got a little bit of an idea about how your code executes behind the scenes, you'll move on with the rest of the lesson and start creating a weather app that interacts with third-party APIs.
