@@ -8,7 +8,8 @@ const argv = yargs
       demand: true,
       alias: 'address',
       describe: 'Address to fetch weather for',
-      string: true
+      string: true,
+      requiresArg: true 
     }
   })
   .help()
@@ -23,9 +24,9 @@ var geocodeURI = `https://maps.googleapis.com/maps/api/geocode/json?address=${en
 axios.get(geocodeURI)
 .then( response => {
     if(response.data.status === 'ZERO_RESULTS') throw new Error(`Unable to find that address`);
-    
+    else if(response.data.status === 'REQUEST_DENIED') throw new Error(`Your Geocode API Key isn't valid, or it hasn't been enabled.`);
     console.log(`\nLocation Matched: ${response.data.results[0].formatted_address}\n`);
-
+    
     var lat = response.data.results[0].geometry.location.lat;
     var lng = response.data.results[0].geometry.location.lng;
     
