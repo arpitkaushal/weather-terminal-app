@@ -6,19 +6,22 @@ var geocodeAddress = (address, callback) => {
 
     request({
     
-    //options
+    // options
     url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${process.env.API_KEY_GEO}`,
     json: true
-    },
+    
+    }, 
 
-    //callback
+    // using (?) callback of 'request' function
     (error, response, body ) => {
 
-        //errors related to the process of making that HTTP request. 
-        if(error) callback(`Unable to connect to google.`);
-        else if(body.status === 'ZERO_RESULTS') callback(`Unable to find that address`);
+        // errors related to the process of making that HTTP request.
+        // now defining what the callback of geocodeaAddress function will be provided with
+        if (error) callback(`Unable to connect to google.`);
+        else if (body.status === 'ZERO_RESULTS') callback(`Unable to find that address`);
         else if (body.status === 'OK') {    
-            callback( undefined, {
+            callback( null, {                               
+                // pass (null, result object with apt properties)
                 address: body.results[0].formatted_address,
                 latitude: body.results[0].geometry.location.lat,
                 longitude: body.results[0].geometry.location.lng

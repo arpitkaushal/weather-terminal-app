@@ -3,7 +3,7 @@ So far, you haven't used Node APIs, the Callback Queue, or the Event Loop. The n
 In this example, you will be using the Call Stack, the Node APIs, the Callback Queue, and the Event Loop. All four of these are going to come into play for your asynchronous program. Now things are going to start off as you might expect. The first thing that happens is you run the main function by adding it on to the Call Stack. This tells V8 to kick off the code you have on the left side in the previous screenshot, shown here again:
 
 console.log('Starting app');
- 
+
 setTimeout(() => {
   console.log('Inside of callback');
 }, 2000);
@@ -16,7 +16,8 @@ console.log('Finishing up');
 The first statement in this code is really simple, a console.log statement that prints Starting app to the screen:
 
 img
-This statement runs right away, and you move on to the second statement. The second statement is where things start to get interesting; this is a call to setTimeout, which is indeed a Node API. It's not available inside V8; it's something that Node gives us access to:
+This statement runs right away, and you move on to the second statement. The second statement is where things start to get interesting; this is a call to setTimeout, which is i
+ndeed a Node API. It's not available inside V8; it's something that Node gives us access to:
 
 img
 The Node API in Async Programming

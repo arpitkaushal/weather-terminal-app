@@ -21,20 +21,17 @@ console.log(`\nThe address that you're searching for: ${argv.address}`);
 
 geocode.geocodeAddress(argv.address, (errorMessage, result) => {        // address is input into the function, 'result' is a property of the callback's return value
     
-    if(errorMessage) console.log(errorMessage);
+    if (errorMessage) console.log(errorMessage);
     else {
         console.log(`\nLocation Matched: ${result.address}\n`);                                                        // result contains location data corresponding to the search
 
         weather.getWeatherOWM( result.latitude, result.longitude, (err, weatherResult) => {                            // err and weatherResult are properties of callback 
             if(err) console.log(err);                                  
             else console.log(`\nAccording to OWM, \nIt's currently ${weatherResult.temperature.toFixed(2)} C.`+        //weatherResult contains weather data corresponding to the location
-                            `\nIt feels like ${weatherResult.apparentTemperature.toFixed(2)} C though.\n`)
+                             `\nIt feels like ${weatherResult.apparentTemperature.toFixed(2)} C though.\n`)
         })
     }
 
 });
-
-
-var FtoC = (num) => (num-32)*5/9 
 
 // API Call OpenWeatherMap https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid={API_KEY_OWM}

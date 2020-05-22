@@ -3,8 +3,8 @@ var somePromise = new Promise( (resolve, reject) => {
     setTimeout( () => {
       resolve(`Hey. It worked!`);
       // resolve(`Please Please Please`);
-      // resolve(`IDK`);
-      // reject(`Fuck you`);
+      // resolve(`Voila`);
+      // reject(`Didn't happen, sorry.`);
       reject(`Unable to fulfil promise`);
     }, 1000)
   });
@@ -12,7 +12,9 @@ var somePromise = new Promise( (resolve, reject) => {
   
   // When you make a promise, you're making a promise; you're saying, "Hey, I'll go off, and I'll fetch that website data for you." Now, this could go well, in which case, you will resolve the promise, setting its state to fulfilled. When a promise is fulfilled, it's gone out, and it's done the thing you've expected it to do. This could be a database request, an HTTP request, or something else completely.
   
-  // Now when you call reject, you're saying, "Hey, you tried to get that thing done, but you just could not." So the promise has been considered rejected. These are the two states that you can set a promise to—fulfilled or rejected. Just like inside geocode.js, you either provide one argument for an error, or you provide the second argument if things went well. Instead of doing that, though, promises give us two functions you can call.
+  // Now when you call reject, you're saying, "Hey, you tried to get that thing done, but you just could not." So the promise has been considered rejected. 
+  
+  // These are the two states that you can set a promise to—fulfilled or rejected. Just like inside geocode.js, you either provide one argument for an error, or you provide the second argument if things went well. Instead of doing that, though, promises give us two functions you can call.
   
   // Now you can only pass one argument to both resolve and reject, which means that if you want to provide multiple pieces of information, it is recommended that you resolve or reject an object that you can set multiple properties on. In your case though, a simple message, Hey. It worked!, will do the job.
   
@@ -29,9 +31,11 @@ var somePromise = new Promise( (resolve, reject) => {
   
   
   // Merits of Promises
+  
   // You now have a promise that can either get resolved or rejected. If it gets resolved, meaning the promise was fulfilled, you have a function that handles that. If it gets rejected, you have a function that handles that as well. This is one of the reasons why promises are awesome. You get to provide different functions, depending on whether or not the promise got resolved or rejected. This lets you avoid a lot of complex if statements inside of your code, which you needed to do in app.js to manage whether or not the actual callback succeeded or failed.
   
   // can call resolve/reject only once - prevents error in workflow from mistakennly calling a callback more than once. With promises, nothing will change because they won't be considered in any way.
+  
   // Now inside a promise, it's important to understand that you can only either resolve or reject a promise once. If you resolve a promise you can't reject it later, and if you resolve it with one value you can't change your mind at a later point in time. Consider this example, where you have a code like the following code; here you resolve first and then you reject:
   
   // You can either resolve once or you can reject once. You can't do both; you can't do either twice.

@@ -1,5 +1,5 @@
-const request = require('request');
-require('dotenv').config();
+const request = require('request');   // make http request
+require('dotenv').config();           // protect API keys, use env variables
 
 
 // function to convert degree F to degree C
@@ -11,17 +11,18 @@ var getWeatherOWM = (lat, lon, callback) => {
     
     request( 
     
-    //options
+    // options
     {
         url: `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.API_KEY_OWM}`,
         json: true
     },
-    //callback
-    (error, response, body) => {
 
+    // handling callback objects of request function
+    (error, response, body) => {
+        // pass (null, result object with apt properties) to callback
         if (!error && response.statusCode === 200) {
-            callback(undefined, {
-              temperature: (body.main.temp -273.15),             // temperature converted to degree C from Kelvin
+            callback( null, {
+              temperature: (body.main.temp -273.15),             // temperature from Kelvin to degree C
               apparentTemperature: (body.main.feels_like - 273.15)
             });
           } else callback('Unable to fetch weather.');

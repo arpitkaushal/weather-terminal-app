@@ -9,10 +9,10 @@ setTimeout( () => {
 
 setTimeout( () =>{
   console.log(`Second Timeout`);
-}, 1.6465); //limit at 1.6465 if time > limit, it'll be too late for this, this function will lose
+}, 1.649); //limit at 1.6465 if time > limit, it'll be too late for this, this function will lose
 
 var add = (a,b) => a+b
-console.log(add(21321,132213213123));
+console.log(add(1,123));
 
 console.log(`Finishing up`);
 
@@ -22,6 +22,6 @@ console.log(`Finishing up`);
 // Now the callback alone isn't really useful; being able to run this function after the user data comes back only works if you get the user data, and that's what you'll expect here:
 
 
-//  In general, a callback function is defined as a function that gets passed as an argument to another function and is executed after some event happens.
+// In general, a callback function is defined as a function that gets passed as an argument to another function and is executed after some event happens.
 
 

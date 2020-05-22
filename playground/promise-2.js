@@ -1,5 +1,6 @@
 const request = require('request');
-const API_KEY_GEO = 'AIzaSyC6UiGWIiVjxlQwVTROvKcq4OveOjMZJo4' 
+require('dotenv').config();           // protect API keys, use env variables
+const API_KEY_GEO = process.env.API_KEY_GEO
 
 var geocodeAddress = (address) => {
 
@@ -25,6 +26,6 @@ var geocodeAddress = (address) => {
 
 }
 
-geocodeAddress('1340207')
+geocodeAddress('134007')
 .then( location => console.log(location) )
 .catch( error => console.log(error) )

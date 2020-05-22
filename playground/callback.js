@@ -1,4 +1,4 @@
-var getUser = ( id, callback ) => {
+var getUser = ( id, callback ) => {   // these are the inputs to our function
     // this part of the function/code gets the user data
     
     //right now, just creating an returning a dummy object, In the future, this is going to come from database queries
@@ -6,12 +6,14 @@ var getUser = ( id, callback ) => {
       id: id,
       name: 'Vikram'
     };
-    // Now that you have your user object, what you want to do is call the callback, passing it as an argument. You'll then be able to actually run, getUser(31, (user) function, printing the user to the screen. To do this, you would call the callback function like any other function, simply referencing it by name and adding your parentheses like this:
+
+    // Now that you have your user object, what you want to do is call the callback, passing it as an argument. You'll then be able to actually run, getUser(31, (user)) function, printing the user to the screen. To do this, you would call the callback function like any other function, simply referencing it by name and adding your parentheses like this:
     // callback(); // this won't work
     // callback(user); //because we need to specify what we'll provide to the callback after user is fetched
   
     // Now you'll not be responding to the getUser request until three seconds have passed.
     // Now this will be more or less similar to what happens when you create real-world examples of callbacks, you pass in a callback, some sort of delay happens whether you're requesting from a database or from an HTTP endpoint, and then the callback gets fired. 
+    
     setTimeout( ()=> {
       callback(user);
     }, 3000);
